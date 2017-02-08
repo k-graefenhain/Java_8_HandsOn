@@ -31,12 +31,23 @@ public class PrimitiveStreams {
 		DoubleStream doubleStream = DoubleStream.generate(() -> Math.PI);
 //		OptionalDouble min = doubleStream.min();			runs infinitely
 
-
 		System.out.println(IntStream.of(7, 4, 8, 10).min().orElse(0));
 		System.out.println(IntStream.of(7, 4, 8, 10).max());
 
 		System.out.println(max(IntStream.of(7, 4, 8, 10)));
 		System.out.println(range(IntStream.of(7, 4, 8, 10)));
+
+		System.out.println("mapToInt:");
+		Stream<Double> doubleStr = Stream.of(2.2, 2.8, 2.5);
+		IntStream intStr = doubleStr.mapToInt(Double::intValue);		// watch out: return type is IntStream (not Stream<Integer>)
+		System.out.println(intStr.distinct().count());
+
+		System.out.println("IntStream methods: ");
+		intStr = IntStream.of(3, 2, 1, 5, 3, 4, 5);
+		System.out.println(intStr.filter(e -> e>3)
+				.distinct()
+				.average()			// average() returns OptionalDouble
+				.getAsDouble());
 	}
 
 	private static int max(IntStream ints) {
