@@ -1,7 +1,7 @@
 package OCP8.streams;
 
-import java.awt.print.Book;
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 /**
@@ -106,5 +106,17 @@ public class IntermediateOperations {
 
 		monkeys = Stream.of(bonobo, gorillas);
 		monkeys.peek(l -> l.remove(0)).map(List::size).forEach(System.out::println);	// here peek modifies the list!!!
+
+		// the original is not changed here
+		List<Integer> numbersList = new ArrayList<>();
+		numbersList.add(1);
+		numbersList.add(7);
+		numbersList.add(4);
+		numbersList.add(3);
+		numbersList.add(5);
+		Predicate<Integer> predicate = p -> p < 5;
+
+		numbersList.stream().filter(predicate);
+		System.out.println(numbersList);
 	}
 }
